@@ -24,7 +24,12 @@ int main() {
             case 1:
                 cout << "Ingrese el nombre de la persona: ";
             cin >> persona;
-            redSocial.agregarNodo(persona);
+            try{
+                redSocial.agregarNodo(persona);
+            }catch(int e){
+                cout << "ya existe";
+            }
+
             break;
             case 2:
                 cout << "Ingrese el nombre de la persona: ";
@@ -45,7 +50,11 @@ int main() {
             case 4:
                 cout << "Ingrese el nombre de la persona a eliminar: ";
             cin >> persona;
+            try{
             redSocial.eliminarNodo(persona);
+            }catch(int e){
+                cout << "no está";
+        }
             break;
             case 5:
                 cout << "Red social actual:\n";

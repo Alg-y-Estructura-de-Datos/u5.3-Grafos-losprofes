@@ -51,7 +51,7 @@ template <class T>
 void Grafo<T>::agregarNodo(const T& nodo) {
     // Verificar si el nodo ya existe
     if (nodos.find(nodo) != nodos.end()) {
-        throw std::invalid_argument("Nodo ya existe.");
+       throw 200; //std::invalid_argument("Nodo ya existe.");
     }
     nodos[nodo] = new NodoGrafo<T>(nodo); // Agregar el nuevo nodo
 }
@@ -74,7 +74,7 @@ void Grafo<T>::agregarArista(const T& origen, const T& destino) {
 template <class T>
 void Grafo<T>::agregarAristaConPeso(const T& origen, const T& destino, int peso) {
     if (nodos.find(origen) == nodos.end() || nodos.find(destino) == nodos.end())
-        throw std::invalid_argument("Uno o ambos nodos no existen.");
+        throw 200;//std::invalid_argument("Uno o ambos nodos no existen.");
 
     nodos[origen]->vecinos.emplace_back(nodos[destino], peso);
     nodos[destino]->vecinos.emplace_back(nodos[origen], peso); // Grafo no dirigido
@@ -93,7 +93,7 @@ template <class T>
 void Grafo<T>::eliminarNodo(const T& nodo) {
     auto it = nodos.find(nodo);
     if (it == nodos.end())
-        throw std::invalid_argument("Nodo no encontrado.");
+        throw 200;//std::invalid_argument("Nodo no encontrado.");
 
     eliminarAristas(it->second);
     delete it->second;
@@ -103,7 +103,7 @@ void Grafo<T>::eliminarNodo(const T& nodo) {
 template <class T>
 void Grafo<T>::eliminarArista(const T& origen, const T& destino) {
     if (nodos.find(origen) == nodos.end() || nodos.find(destino) == nodos.end())
-        throw std::invalid_argument("Uno o ambos nodos no existen.");
+        throw 200;// std::invalid_argument("Uno o ambos nodos no existen.");
 
     // Eliminar arista en ambos nodos (grafo no dirigido)
     nodos[origen]->vecinos.remove_if([destino](const std::pair<NodoGrafo<T>*, int>& vecino) {
