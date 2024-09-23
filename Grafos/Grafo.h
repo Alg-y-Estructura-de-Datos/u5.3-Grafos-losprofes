@@ -1,6 +1,6 @@
 #ifndef GRAFO_H
 #define GRAFO_H
-
+/*Estructura de Datos Grafo no dirigido con aristas sin y con ponderar. Se sugiere revisar la ponderación antes de usarla.*/
 #include <iostream>
 #include <map>
 #include "NodoGrafo.h"
