@@ -33,9 +33,18 @@ Grafo<T>::~Grafo() {
     }
 }
 
-template <class T>
+/*template <class T>
 void Grafo<T>::agregarNodo(const T& nodo) {
     nodos[nodo] = new NodoGrafo<T>(nodo);
+}*/
+
+template <class T>
+void Grafo<T>::agregarNodo(const T& nodo) {
+    // Verificar si el nodo ya existe
+    if (nodos.find(nodo) != nodos.end()) {
+        throw 404;
+    }
+    nodos[nodo] = new NodoGrafo<T>(nodo); // Agregar el nuevo nodo
 }
 
 template <class T>
