@@ -1,4 +1,5 @@
-C:/Users/salce/OneDrive/Documentos/Programación III/Unidad 05 Arboles y Grafos/Grafos/cmake-build-debug/CMakeFiles/U05-E01.dir
-C:/Users/salce/OneDrive/Documentos/Programación III/Unidad 05 Arboles y Grafos/Grafos/cmake-build-debug/CMakeFiles/U05-E02.dir
-C:/Users/salce/OneDrive/Documentos/Programación III/Unidad 05 Arboles y Grafos/Grafos/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/salce/OneDrive/Documentos/Programación III/Unidad 05 Arboles y Grafos/Grafos/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/lover/Desktop/Personales/UCC/Prog 3/2024/u5.3-Grafos-losprofes/cmake-build-debug/CMakeFiles/U05-E01.dir
+C:/Users/lover/Desktop/Personales/UCC/Prog 3/2024/u5.3-Grafos-losprofes/cmake-build-debug/CMakeFiles/U05-E02.dir
+C:/Users/lover/Desktop/Personales/UCC/Prog 3/2024/u5.3-Grafos-losprofes/cmake-build-debug/CMakeFiles/Ej-03.dir
+C:/Users/lover/Desktop/Personales/UCC/Prog 3/2024/u5.3-Grafos-losprofes/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/lover/Desktop/Personales/UCC/Prog 3/2024/u5.3-Grafos-losprofes/cmake-build-debug/CMakeFiles/rebuild_cache.dir

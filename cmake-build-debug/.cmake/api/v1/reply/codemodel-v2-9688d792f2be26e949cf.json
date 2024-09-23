@@ -1,0 +1,74 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Project",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Ej-03::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Ej-03-Debug-3faec9e0fc3e1b526df3.json",
+					"name" : "Ej-03",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "U05-E01::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-U05-E01-Debug-a6aed6b95fcff9b2c12d.json",
+					"name" : "U05-E01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "U05-E02::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-U05-E02-Debug-a827cd276dc9f44f118c.json",
+					"name" : "U05-E02",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/lover/Desktop/Personales/UCC/Prog 3/2024/u5.3-Grafos-losprofes/cmake-build-debug",
+		"source" : "C:/Users/lover/Desktop/Personales/UCC/Prog 3/2024/u5.3-Grafos-losprofes"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}

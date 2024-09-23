@@ -4,25 +4,15 @@
 #include <iostream>
 #include <list>
 
-/*template <class T>
-class NodoGrafo {
-public:
-    T data;
-    std::list<NodoGrafo<T>*> vecinos;
-
-    NodoGrafo(const T& d) : data(d) {}
-};*/
-
-
+// Definición de NodoGrafo
 template <class T>
 class NodoGrafo {
 public:
     T data;
-    std::list<std::pair<NodoGrafo<T>*, int>> vecinos; // Cada vecino incluye un peso
+    std::list<std::pair<NodoGrafo<T>*, int>> vecinos;
 
-    NodoGrafo(const T& d) : data(d) {}
+    NodoGrafo(const T& dato) : data(dato) {}
 };
-
 
 #endif // NODOGRAFO_H
 

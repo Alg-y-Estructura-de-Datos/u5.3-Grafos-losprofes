@@ -4,25 +4,15 @@
 #include <iostream>
 #include <map>
 #include "NodoGrafo.h"
+#include <iostream>
+#include <map>
+#include <list>
+#include <string>
+#include <stdexcept>
+#include <utility>
+using namespace std;
 
-/*template <class T>
-class Grafo {
-private:
-    std::map<T, NodoGrafo<T>*> nodos;
-
-public:
-    Grafo();                       // Constructor
-    ~Grafo();                      // Destructor
-    void agregarNodo(const T& nodo);
-    void agregarArista(const T& origen, const T& destino);
-    bool buscarNodo(const T& nodo);
-    void eliminarNodo(const T& nodo);
-    void imprimir();
-
-private:
-    void eliminarAristas(NodoGrafo<T>* nodo);
-};*/
-
+// Definición de Grafo
 template <class T>
 class Grafo {
 private:
@@ -37,14 +27,15 @@ public:
     void eliminarNodo(const T& nodo);
     void eliminarArista(const T& origen, const T& destino);
     bool estanConectados(const T& origen, const T& destino);
-    std::list<T> obtenerVecinos(const T& nodo);
+    bool buscarNodo(const T& nodo); // Declaración añadida
     void imprimir();
 
 private:
     void eliminarAristas(NodoGrafo<T>* nodo);
     bool dfs(const T& origen, const T& destino, std::map<T, bool>& visitado);
-
 };
+
+// Implementación del Grafo
 
 template <class T>
 Grafo<T>::Grafo() {}
@@ -56,27 +47,13 @@ Grafo<T>::~Grafo() {
     }
 }
 
-/*template <class T>
-void Grafo<T>::agregarNodo(const T& nodo) {
-    nodos[nodo] = new NodoGrafo<T>(nodo);
-}*/
-
 template <class T>
 void Grafo<T>::agregarNodo(const T& nodo) {
     // Verificar si el nodo ya existe
     if (nodos.find(nodo) != nodos.end()) {
-        throw 404;
+        throw std::invalid_argument("Nodo ya existe.");
     }
     nodos[nodo] = new NodoGrafo<T>(nodo); // Agregar el nuevo nodo
-}
-
-template <class T>
-void Grafo<T>::agregarArista(const T& origen, const T& destino) {
-    if (nodos.find(origen) == nodos.end() || nodos.find(destino) == nodos.end())
-        return;
-
-    nodos[origen]->vecinos.push_back(nodos[destino]);
-    nodos[destino]->vecinos.push_back(nodos[origen]); // Grafo no dirigido
 }
 
 template <class T>
@@ -85,27 +62,48 @@ bool Grafo<T>::buscarNodo(const T& nodo) {
 }
 
 template <class T>
+void Grafo<T>::agregarArista(const T& origen, const T& destino) {
+    if (nodos.find(origen) == nodos.end() || nodos.find(destino) == nodos.end())
+        throw std::invalid_argument("Uno o ambos nodos no existen.");
+
+    // Usar un peso predeterminado, por ejemplo, 1
+    nodos[origen]->vecinos.emplace_back(nodos[destino], 1);
+    nodos[destino]->vecinos.emplace_back(nodos[origen], 1); // Grafo no dirigido
+}
+
+template <class T>
+void Grafo<T>::agregarAristaConPeso(const T& origen, const T& destino, int peso) {
+    if (nodos.find(origen) == nodos.end() || nodos.find(destino) == nodos.end())
+        throw std::invalid_argument("Uno o ambos nodos no existen.");
+
+    nodos[origen]->vecinos.emplace_back(nodos[destino], peso);
+    nodos[destino]->vecinos.emplace_back(nodos[origen], peso); // Grafo no dirigido
+}
+
+template <class T>
 void Grafo<T>::eliminarAristas(NodoGrafo<T>* nodo) {
     for (auto& par : nodos) {
-        par.second->vecinos.remove(nodo);
+        par.second->vecinos.remove_if([nodo](const std::pair<NodoGrafo<T>*, int>& vecino) {
+            return vecino.first == nodo;
+        });
     }
 }
 
 template <class T>
 void Grafo<T>::eliminarNodo(const T& nodo) {
-    if (nodos.find(nodo) == nodos.end())
-        return;
+    auto it = nodos.find(nodo);
+    if (it == nodos.end())
+        throw std::invalid_argument("Nodo no encontrado.");
 
-    eliminarAristas(nodos[nodo]);
-    delete nodos[nodo];
-    nodos.erase(nodo);
+    eliminarAristas(it->second);
+    delete it->second;
+    nodos.erase(it);
 }
-
 
 template <class T>
 void Grafo<T>::eliminarArista(const T& origen, const T& destino) {
     if (nodos.find(origen) == nodos.end() || nodos.find(destino) == nodos.end())
-        return;
+        throw std::invalid_argument("Uno o ambos nodos no existen.");
 
     // Eliminar arista en ambos nodos (grafo no dirigido)
     nodos[origen]->vecinos.remove_if([destino](const std::pair<NodoGrafo<T>*, int>& vecino) {
@@ -115,31 +113,6 @@ void Grafo<T>::eliminarArista(const T& origen, const T& destino) {
         return vecino.first->data == origen;
     });
 }
-
-template <class T>
-std::list<T> Grafo<T>::obtenerVecinos(const T& nodo) {
-    std::list<T> listaVecinos;
-
-    if (nodos.find(nodo) != nodos.end()) {
-        for (const auto& vecino : nodos[nodo]->vecinos) {
-            listaVecinos.push_back(vecino.first->data); // Guardamos los datos de los vecinos
-        }
-    }
-
-    return listaVecinos;
-}
-
-
-template <class T>
-void Grafo<T>::agregarAristaConPeso(const T& origen, const T& destino, int peso) {
-    if (nodos.find(origen) == nodos.end() || nodos.find(destino) == nodos.end())
-        return; // Si alguno de los nodos no existe
-
-    // Agregar el vecino con el peso a ambos nodos (grafo no dirigido)
-    nodos[origen]->vecinos.push_back({nodos[destino], peso});
-    nodos[destino]->vecinos.push_back({nodos[origen], peso});
-}
-
 
 template <class T>
 bool Grafo<T>::estanConectados(const T& origen, const T& destino) {
@@ -157,24 +130,38 @@ bool Grafo<T>::dfs(const T& origen, const T& destino, std::map<T, bool>& visitad
     visitado[origen] = true; // Marcamos el nodo como visitado
 
     // Recorremos los vecinos del nodo
-    for (NodoGrafo<T>* vecino : nodos[origen]->vecinos) {
-        if (!visitado[vecino->data] && dfs(vecino->data, destino, visitado))
+    for (const auto& vecino : nodos[origen]->vecinos) {
+        if (!visitado[vecino.first->data] && dfs(vecino.first->data, destino, visitado))
             return true;
     }
     return false;
 }
-
-
 
 template <class T>
 void Grafo<T>::imprimir() {
     for (const auto& par : nodos) {
         std::cout << par.first << " -> ";
         for (const auto& vecino : par.second->vecinos) {
-            std::cout << vecino->data << " ";
+            std::cout << vecino.first->data << " ";// << "(" << vecino.second << ") ";
         }
         std::cout << std::endl;
     }
 }
+/*
+void imprimir() {
+    cout << "Red social actual:" << endl;
+    for (auto const& par : nodos) {
+        cout << par.first << " -> ";
+        bool primero = true;
+        for (auto const& adyacente : par.second) {
+            if (!primero) {
+                cout << " ";  // Espacio entre nodos
+            }
+            cout << adyacente.first;  // Solo imprime el nodo adyacente, sin el peso
+            primero = false;
+        }
+        cout << endl;
+    }
+}*/
 
 #endif // GRAFO_H
